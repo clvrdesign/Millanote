@@ -1,21 +1,26 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import Navbar from '../../components/Navbar/Navbar'
-import Footer from '../../components/Footer/Footer'
-import Note from '../../components/Note/Note'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
+import Note from '../../components/Note/Note';
 
 function Home() {
-  const [notes, setNotes] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios.get('http://localhost:3000/notes')
       .then(response => {
-        setNotes(response.data)
-        setLoading(false)
+        setNotes(response.data);
+        // Set loading to false whether notes are found or not
+        setLoading(false);
       })
-  }, [])
-
+      .catch(error => {
+        console.error('Error fetching notes:', error);
+        // Ensure loading is stopped even if there's an error
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <>
@@ -28,7 +33,7 @@ function Home() {
           {loading ? (
             <div className="animate-spin inline-block w-10 h-10 border-t-2 border-sky-500 rounded-full"></div>
           ) : (
-            notes && notes.length > 0 ? (
+            notes.length > 0 ? (
               <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-5">
                 {notes.map(note => (
                   <Note
@@ -46,10 +51,9 @@ function Home() {
           )}
         </div>
       </div>
-
       <Footer />
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
