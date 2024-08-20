@@ -25,26 +25,28 @@ function Home() {
   return (
     <>
       <Navbar />
-      <div className="container min-h-[80vh] flex justify-between items-center h-full px-4 py-20 mx-auto max-w-screen flex-col">
-        <h1 className="text-2xl text-slate-700 font-bold py-10">
-          All Notes
-        </h1>
+      <div className="container m-auto min-h-[80vh] flex items-center justify-center px-4 py-20">
         <div className="h-full flex items-center justify-center">
           {loading ? (
             <div className="animate-spin inline-block w-10 h-10 border-t-2 border-sky-500 rounded-full"></div>
           ) : (
             notes.length > 0 ? (
-              <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-5">
-                {notes.map(note => (
-                  <Note
-                    key={note._id} // Ensure each Note has a unique key
-                    title={note.title}
-                    content={note.content}
-                    category={note.category}
-                    date={note.date} // Assuming `date` exists; adjust if different
-                  />
-                ))}
-              </div>
+              <>
+              
+                <h1 className="text-2xl text-slate-700 font-bold py-10">
+                  All Notes
+                </h1>
+                <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-5">
+                  {notes.map(note => (
+                    <Note
+                      key={note._id} // Ensure each Note has a unique key
+                      title={note.title}
+                      content={note.content}
+                      category={note.category}
+                      date={note.date} // Assuming `date` exists; adjust if different
+                    />
+                  ))}
+                </div></>
             ) : (
               <p>No notes available</p>
             )
