@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
+import {api} from '../../../apiEndpoint'
+
 
 function AddNote() {
   const navigate = useNavigate();
@@ -54,7 +56,7 @@ function AddNote() {
 
     // Validate the form
     if (validateForm()) {
-      axios.post('http://localhost:3000/notes', formData)
+      axios.post(api.dev, formData)
         .then((response) => {
           console.log('Response:', response);
           console.log('Note created successfully!');

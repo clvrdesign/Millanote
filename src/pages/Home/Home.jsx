@@ -5,6 +5,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Note from '../../components/Note/Note';
 import { useNavigate } from 'react-router-dom';
+import {api} from '../../../apiEndpoint'
 
 function Home() {
   const navigate = useNavigate(); // Use the navigate hook
@@ -12,7 +13,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/notes')
+    axios.get(api.dev)
       .then(response => {
         setNotes(response.data);
         setLoading(false);
@@ -24,7 +25,7 @@ function Home() {
   }, []);
 
   const handleDeleteNote = (id) => {
-    axios.delete(`http://localhost:3000/notes/${id}`)
+    axios.delete(`${api.dev}/${id}`)
       .then(() => {
         // Update the state after successful deletion
         setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
@@ -34,9 +35,8 @@ function Home() {
       });
   };
 
-  const handleEditNote = (id) => {
-    // navigate('/edit-note'); // Use the navigate function
-    alert(id)
+  const handleEditNote = () => {
+    navigate('/edit-note'); // Use the navigate function
   };
 
   return (
