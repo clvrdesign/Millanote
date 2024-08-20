@@ -53,7 +53,10 @@ function Home() {
                 </div>
               </>
             ) : (
-              <p>No notes available</p>
+              <p className='bg-sky-50 lg:py-10 py-5 lg:px-20 px-10 flex gap-5 flex-col justify-center items-center text-center rounded-xl border border-sky-100'>
+                <i className="bi bi-info-circle text-3xl"></i>
+                Your notes will be displayed here
+              </p>
             )
           )}
         </div>
