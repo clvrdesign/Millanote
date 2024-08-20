@@ -1,10 +1,13 @@
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Note from '../../components/Note/Note';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const navigate = useNavigate(); // Use the navigate hook
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,18 +15,28 @@ function Home() {
     axios.get('http://localhost:3000/notes')
       .then(response => {
         setNotes(response.data);
-        setLoading(false); // Set loading to false after notes are fetched
+        setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching notes:', error);
-        setLoading(false); // Set loading to false even if there's an error
+        setLoading(false);
       });
   }, []);
 
   const handleDeleteNote = (id) => {
-    // Filter out the note with the given id
-    setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
     axios.delete(`http://localhost:3000/notes/${id}`)
+      .then(() => {
+        // Update the state after successful deletion
+        setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
+      })
+      .catch(error => {
+        console.error('Error deleting note:', error);
+      });
+  };
+
+  const handleEditNote = (id) => {
+    // navigate('/edit-note'); // Use the navigate function
+    alert(id)
   };
 
   return (
@@ -42,12 +55,13 @@ function Home() {
                 <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-5">
                   {notes.map(note => (
                     <Note
-                      key={note._id} // Ensure each Note has a unique key
+                      key={note._id}
                       title={note.title}
                       content={note.content}
                       category={note.category}
-                      date={note.date} // Assuming `date` exists; adjust if different
+                      date={moment(note.date).format('MMMM D, YYYY ・ HH:mm')}
                       deleteNote={() => handleDeleteNote(note._id)}
+                      editNote={() => handleEditNote(note._id)}
                     />
                   ))}
                 </div>

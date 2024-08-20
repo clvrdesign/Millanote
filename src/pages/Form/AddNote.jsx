@@ -8,7 +8,7 @@ function AddNote() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
-    description: '',
+    content: '',
     category: ''
   });
   const [errors, setErrors] = useState({});
@@ -31,9 +31,9 @@ function AddNote() {
       formErrors.title = 'Title should not exceed 100 characters';
     }
 
-    // Check if description is empty
-    if (formData.description.trim() === '') {
-      formErrors.description = 'Description is required';
+    // Check if content is empty
+    if (formData.content.trim() === '') {
+      formErrors.content = 'Content is required';
     }
 
     // Check if category is empty
@@ -98,16 +98,16 @@ function AddNote() {
           />
           
 
-          {/* Description Input */}
-          {errors.description && (
-            <small className="text-red-500">{errors.description}</small>
+          {/* Content Input */}
+          {errors.content && (
+            <small className="text-red-500">{errors.content}</small>
           )}
           <textarea
-            className={`bg-slate-100 border ${errors.description ? 'border-red-300' : 'border-slate-200'} text-slate-700 text-sm w-full min-h-20 p-2 focus:outline-none focus:border-sky-500 rounded-md mb-4`}
-            name="description"
-            id="description"
+            className={`bg-slate-100 border ${errors.content ? 'border-red-300' : 'border-slate-200'} text-slate-700 text-sm w-full min-h-20 p-2 focus:outline-none focus:border-sky-500 rounded-md mb-4`}
+            name="content"
+            id="content"
             placeholder="Note"
-            value={formData.description}
+            value={formData.content}
             onChange={handleChange}
           ></textarea>
           

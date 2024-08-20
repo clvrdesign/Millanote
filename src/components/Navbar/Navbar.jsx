@@ -24,8 +24,9 @@ function Navbar() {
           <ul className="flex items-center gap-10">
             {!isHome &&
               <li className='block'>
-                <Link className='hover:text-sky-500 ease-in duration-150' to='/'>
-                  <i className="bi bi-house"></i> All Notes
+                <Link className='hover:bg-slate-200 hover:text-slate-600 bg-sky-500 text-white p-2 ease-in duration-150 rounded-lg' to='/'>
+                <i className="bi bi-file-text-fill mr-1"></i>
+                  Notes
                 </Link>
               </li>
             }
