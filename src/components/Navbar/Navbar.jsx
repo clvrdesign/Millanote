@@ -9,7 +9,6 @@ function Navbar() {
   useEffect(() => {
     if (location.pathname === '/create-note') {
       setIsHome(false)
-      console.log(assets.logo)
     }
   }, [location.pathname])
 
