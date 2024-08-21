@@ -54,10 +54,10 @@ function AddNote() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
+    
     // Validate the form
     if (validateForm()) {
+      setIsSubmitting(true);
       axios.post(api.dev, formData)
         .then((response) => {
           console.log('Response:', response);

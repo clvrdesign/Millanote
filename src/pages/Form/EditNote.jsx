@@ -63,9 +63,9 @@ function EditNote() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
+    
     if (validateForm()) {
+      setIsSubmitting(true);
       axios.patch(`${api.dev}/${id}`, formData)
         .then((response) => {
           console.log('Response:', response);
