@@ -6,7 +6,7 @@ function Navbar() {
   const [isHome, setIsHome] = useState(true)
   const location = useLocation()
   const navigate = useNavigate()
-
+  const windowWidth = 926
 
   useEffect(() => {
     const handleNavigation = () => {
@@ -14,22 +14,17 @@ function Navbar() {
       if (location.pathname === '/create-note') {
         setIsHome(false);
       } 
-  
-      // If the window width is greater than 926px, navigate to '/warning'
-      if (window.innerWidth > 926) {
-        console.log('This app was designed only for mobile use');
-        navigate('/warning');
-      } else {
-        // If on mobile and trying to access '/warning', redirect to home
-        if (location.pathname === '/warning') {
-          navigate('/');
-          console('warning.')
-        }
-      }
     };
+    
+    if(window.innerWidth > windowWidth){
+      if (location.pathname !== '/warning') {
+        navigate('/warning')
+      } 
+      navigate('/')
+    }
   
     handleNavigation();
-  }, [location.pathname, navigate]);
+  }, [location.pathname, windowWidth, navigate]);
   
   return (
     <div className="fixed top-0 w-full h-12 text-slate-700 bg-slate-100 py-10 z-40">

@@ -87,7 +87,7 @@ function EditNote() {
           <div className="animate-spin inline-block w-10 h-10 border-t-2 border-sky-500 rounded-full"></div>
         </div>
       }
-      <div className="flex h-screen items-center m-4">
+      <div className="flex h-[calc(100vh-150px)] items-center m-4">
 
         <form className="w-96 mx-auto mt-20" onSubmit={handleSubmit}>
           <h1 className="mb-10 text-4xl text-center text-slate-700 font-bold">Edit Note</h1>

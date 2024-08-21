@@ -74,7 +74,7 @@ function AddNote() {
   return (
     <>
       <Navbar />
-      <div className="flex h-screen items-center m-4">
+      <div className="flex h-[calc(100vh-150px)] items-center m-4">
         <form className="w-96 mx-auto mt-20" onSubmit={handleSubmit}>
           <h1 className="mb-10 text-4xl text-center text-slate-700 font-bold">Create</h1>
           
