@@ -35,8 +35,8 @@ function Home() {
       });
   };
 
-  const handleEditNote = () => {
-    navigate('/edit-note'); // Use the navigate function
+  const handleEditNote = (id) => {
+    navigate(`/edit-note/${id}`); // Use the navigate function
   };
 
   return (

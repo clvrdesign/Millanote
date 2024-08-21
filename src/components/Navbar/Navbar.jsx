@@ -1,19 +1,38 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import assets  from '../../assets/assets'
 
 function Navbar() {
   const [isHome, setIsHome] = useState(true)
   const location = useLocation()
+  const navigate = useNavigate()
+
 
   useEffect(() => {
-    if (location.pathname === '/create-note') {
-      setIsHome(false)
-    }
-  }, [location.pathname])
-
+    const handleNavigation = () => {
+      // Check if the current route is '/create-note'
+      if (location.pathname === '/create-note') {
+        setIsHome(false);
+      } 
+  
+      // If the window width is greater than 926px, navigate to '/warning'
+      if (window.innerWidth > 926) {
+        console.log('This app was designed only for mobile use');
+        navigate('/warning');
+      } else {
+        // If on mobile and trying to access '/warning', redirect to home
+        if (location.pathname === '/warning') {
+          navigate('/');
+          console('warning.')
+        }
+      }
+    };
+  
+    handleNavigation();
+  }, [location.pathname, navigate]);
+  
   return (
-    <div className="fixed top-0 w-full h-12 text-slate-700 bg-slate-100 py-10">
+    <div className="fixed top-0 w-full h-12 text-slate-700 bg-slate-100 py-10 z-40">
       <div className="container flex justify-between items-center h-full px-4 mx-auto max-w-screen-2xl">
         <h2 className="text-3xl font-bold">
           <Link to="/">
