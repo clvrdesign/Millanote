@@ -8,6 +8,7 @@ import { api } from '../../../apiEndpoint';
 function EditNote() {
   const { id } = useParams();  // Destructure to get the note ID
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true); // Initialize state for the note object
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -20,8 +21,10 @@ function EditNote() {
     axios.get(`${api.dev}/${id}`)
       .then((response) => {
         setFormData(response.data);
+        setLoading(false)
       })
       .catch((error) => {
+        setLoading(false)
         console.error('Error fetching note:', error._errors);
       });
   }, [id]);
@@ -79,17 +82,22 @@ function EditNote() {
   return (
     <>
       <Navbar />
+      {loading &&
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-70 z-50">
+          <div className="animate-spin inline-block w-10 h-10 border-t-2 border-sky-500 rounded-full"></div>
+        </div>
+      }
       <div className="flex h-screen items-center m-4">
-        
+
         <form className="w-96 mx-auto mt-20" onSubmit={handleSubmit}>
           <h1 className="mb-10 text-4xl text-center text-slate-700 font-bold">Edit Note</h1>
-          
+
           {errors.submit && (
             <div className="block bg-red-50 py-2 px-3 mb-4 border border-red-300">
               <small>{errors.submit}</small>
             </div>
           )}
-          
+
           {errors.title && (
             <small className="text-red-500">{errors.title}</small>
           )}
@@ -102,7 +110,7 @@ function EditNote() {
             value={formData.title}
             onChange={handleChange}
           />
-          
+
           {errors.content && (
             <small className="text-red-500">{errors.content}</small>
           )}
@@ -127,7 +135,7 @@ function EditNote() {
             value={formData.category}
             onChange={handleChange}
           />
-          
+
           <button className="bg-sky-500 text-slate-100 w-full p-2 focus:outline-none focus:border-sky-500 rounded-md mb-4 text-sm" type="submit">
             Update
           </button>
