@@ -8,6 +8,7 @@ import {api} from '../../../apiEndpoint'
 
 function AddNote() {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -53,6 +54,7 @@ function AddNote() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     // Validate the form
     if (validateForm()) {
@@ -65,6 +67,9 @@ function AddNote() {
         .catch((error) => {
           console.error(error.message);
           setErrors({ submit: 'Error creating note. Please try again later.' });
+        })
+        .finally(() => {
+          setIsSubmitting(false);
         });
     }
 
@@ -130,7 +135,7 @@ function AddNote() {
           />
           
           <button className="bg-sky-500 text-slate-100 w-full p-2 focus:outline-none focus:border-sky-500 rounded-md mb-4 text-sm" type="submit">
-            Create
+            {isSubmitting ? 'Submitting...' : 'Create'}
           </button>
         </form>
       </div>

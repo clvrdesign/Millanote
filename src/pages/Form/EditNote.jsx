@@ -9,6 +9,7 @@ function EditNote() {
   const { id } = useParams();  // Destructure to get the note ID
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true); // Initialize state for the note object
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -62,6 +63,7 @@ function EditNote() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     if (validateForm()) {
       axios.patch(`${api.dev}/${id}`, formData)
@@ -73,6 +75,9 @@ function EditNote() {
         .catch((error) => {
           console.error('Error updating note:', error);
           setErrors({ submit: 'Error updating note. Please try again later.' });
+        })
+        .finally(() => {
+          setIsSubmitting(false);
         });
     }
 
@@ -137,7 +142,7 @@ function EditNote() {
           />
 
           <button className="bg-sky-500 text-slate-100 w-full p-2 focus:outline-none focus:border-sky-500 rounded-md mb-4 text-sm" type="submit">
-            Update
+            {isSubmitting ? 'Submitting...' : 'Update'}
           </button>
         </form>
       </div>
