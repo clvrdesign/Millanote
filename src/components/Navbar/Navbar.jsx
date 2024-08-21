@@ -20,7 +20,7 @@ function Navbar() {
       if (location.pathname !== '/warning') {
         navigate('/warning')
       } 
-      navigate('/')
+      navigate('/warning')
     }
   
     handleNavigation();
