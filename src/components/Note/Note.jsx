@@ -15,7 +15,7 @@ const Note = ({ title, content,category, date, deleteIcon, deleteNote, editNote 
       <p className='text-[15px] text-slate-700 py-3'>{content}</p>
       <small className='block text-sky-500 my-3'>#{category}</small>
       {option &&
-      <div className="absolute bottom-2 right-2 flex flex-col lg:flex-row gap-2">
+      <div className="absolute top-2 right-2 flex flex-col lg:flex-row gap-2">
          <button className='bg-sky-500 hover:bg-slate-500 ease-out duration-150 text-slate-50 w-10 p-2 rounded-md' onClick={editNote}>
          <i className='bi bi-pencil-square'></i>
          </button>
