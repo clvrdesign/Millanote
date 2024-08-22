@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types';
 
-const Note = ({ title, content,category, date, deleteNote, editNote }) => {
+const Note = ({ title, content,category, date, deleteIcon, deleteNote, editNote }) => {
   const [option, setOption] = useState(false)
 
   const showOption = () =>{
@@ -20,7 +20,7 @@ const Note = ({ title, content,category, date, deleteNote, editNote }) => {
          <i className='bi bi-pencil-square'></i>
          </button>
          <button className='bg-slate-300 hover:bg-red-500 hover:text-slate-100 ease-out duration-150 text-slate-700 w-10 p-2 rounded-md' onClick={deleteNote}>
-          <i className='bi bi-trash'></i>
+          {deleteIcon}
          </button>
       </div>
       }
@@ -33,6 +33,7 @@ Note.propTypes = {
   content: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  deleteIcon: PropTypes.node.isRequired,
   deleteNote: PropTypes.func.isRequired,
   editNote: PropTypes.func.isRequired
 };

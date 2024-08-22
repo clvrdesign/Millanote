@@ -5,12 +5,13 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Note from '../../components/Note/Note';
 import { useNavigate } from 'react-router-dom';
-import {api} from '../../../apiEndpoint'
+import { api } from '../../../apiEndpoint'
 
 function Home() {
   const navigate = useNavigate(); // Use the navigate hook
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     axios.get(api.dev)
@@ -25,10 +26,12 @@ function Home() {
   }, []);
 
   const handleDeleteNote = (id) => {
+    setDeleting(true);
     axios.delete(`${api.dev}/${id}`)
       .then(() => {
         // Update the state after successful deletion
         setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
+        setDeleting(false);
       })
       .catch(error => {
         console.error('Error deleting note:', error);
@@ -53,6 +56,7 @@ function Home() {
                   All Notes
                 </h1>
                 <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-5">
+
                   {notes.map(note => (
                     <Note
                       key={note._id}
@@ -62,8 +66,18 @@ function Home() {
                       date={moment(note.date).format('MMMM D, YYYY ・ HH:mm')}
                       deleteNote={() => handleDeleteNote(note._id)}
                       editNote={() => handleEditNote(note._id)}
+                      deleteIcon={
+                        deleting ? (
+                          <i className="bi bi-trash-fill"></i>
+                        ) : (
+                          <i className="bi bi-trash"></i>
+                        )
+                      }
                     />
                   ))}
+
+
+
                 </div>
               </>
             ) : (
